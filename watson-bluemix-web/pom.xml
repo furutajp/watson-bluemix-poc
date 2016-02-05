@@ -9,7 +9,6 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>	
 	
-	<groupId>com.furuta</groupId>
 	<artifactId>watson-bluemix-web</artifactId>
 	<packaging>war</packaging>
 	
@@ -24,6 +23,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.furuta</groupId>
+			<artifactId>watson-bluemix-service</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>

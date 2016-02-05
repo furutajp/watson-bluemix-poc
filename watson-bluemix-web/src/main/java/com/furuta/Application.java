@@ -1,24 +1,12 @@
-package com.furuta.config;
-
-import java.util.Date;
+package com.furuta;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Application extends SpringBootServletInitializer {
-
-    @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "The time now is " + new Date();
-    }
 
     @Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
