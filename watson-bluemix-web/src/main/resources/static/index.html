@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="conceptExpansionModule">
+
+	<head>
+		<title>Watson Concept Expansion PoC</title>
+		<script src="angular/angular.min.js"></script>
+		<script src="js/conceptExpansion.js"></script>
+	</head>
+	
+	<body ng-controller="conceptExpansionCtrl">
+
+		<h1>Watson Concept Expansion PoC</h1>
+
+		<form novalidate ng-submit="submit()">
+			
+			<div style="float: left; width: 50%">
+			
+				<h2>Input</h2>
+			
+				<textarea rows = 10 ng-model="seeds"></textarea> <br/>
+		   		<input type="submit" id="submit" value="Evaluate Seeds"></input> <br/>
+		   		
+			</div>
+			
+			<div style="float: left;">
+				
+				<h2>Output</h2>
+			
+				<ul>
+					<li ng-repeat="concept in concepts">
+						{{ concept.name }} : {{ concept.prevalence * 100 }} %
+					</li>
+				</ul>
+			</div>
+
+		</form>
+	</body>
+</html>
