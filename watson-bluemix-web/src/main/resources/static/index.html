@@ -5,24 +5,47 @@
 		<title>Watson Concept Expansion PoC</title>
 		<script src="angular/angular.min.js"></script>
 		<script src="js/conceptExpansion.js"></script>
+		
+		<style type="text/css">
+			.column-left {
+				float: left;
+				width: 40%;
+				margin-left: 10%;
+			}
+			
+			.column-right {
+				float: left;
+				width: 40%;
+				margin-right: 10%;	
+			}
+			
+			body {
+				font-family: "Arial";
+			}
+			
+			h1, h2 {
+				font-weight: normal;
+			}
+		
+		</style>
 	</head>
 	
 	<body ng-controller="conceptExpansionCtrl">
 
-		<h1>Watson Concept Expansion PoC</h1>
+		<h1 style="text-align: center">Watson Concept Expansion PoC</h1>
 
 		<form novalidate ng-submit="submit()">
 			
-			<div style="float: left; width: 50%">
+			<div class="column-left">
 			
 				<h2>Input</h2>
 			
-				<textarea rows=10 style="width: 90%" ng-model="seeds"></textarea> <br/>
+				<textarea style="width: 90%; height: 400px;" ng-model="seeds"></textarea> <br/> <br/>
 		   		<input type="submit" id="submit" value="Evaluate Seeds"></input> <br/>
 		   		
 			</div>
 			
-			<div style="float: left;">
+			<div class="column-right">
 				
 				<h2>Output</h2>
 			

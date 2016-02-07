@@ -1,7 +1,5 @@
 package com.furuta.repository;
 
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Repository;
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.furuta.bean.ConceptExpansionJob;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,8 +24,8 @@ public class ConceptExpansionRepository {
 		this.database = client.database("concept-expansion", false);
 	}
 
-	public void save(final Map<String, Object> data) {
-		database.save(data);
+	public void save(final ConceptExpansionJob job) {
+		database.save(job);
 	}
 
 	private CloudantClient getCloudantClient() {
