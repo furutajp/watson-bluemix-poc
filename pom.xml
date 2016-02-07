@@ -15,6 +15,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>watson-bluemix-domain</module>
 		<module>watson-bluemix-service</module>
 		<module>watson-bluemix-web</module>
 	</modules>
