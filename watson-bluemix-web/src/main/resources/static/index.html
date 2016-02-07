@@ -5,55 +5,56 @@
 		<title>Watson Concept Expansion PoC</title>
 		<script src="angular/angular.min.js"></script>
 		<script src="js/conceptExpansion.js"></script>
-		
-		<style type="text/css">
-			.column-left {
-				float: left;
-				width: 40%;
-				margin-left: 10%;
-			}
-			
-			.column-right {
-				float: left;
-				width: 40%;
-				margin-right: 10%;	
-			}
-			
-			body {
-				font-family: "Arial";
-			}
-			
-			h1, h2 {
-				font-weight: normal;
-			}
-		
-		</style>
+		<link rel="stylesheet" href="css/conceptExpansion.css" />
 	</head>
 	
 	<body ng-controller="conceptExpansionCtrl">
 
-		<h1 style="text-align: center">Watson Concept Expansion PoC</h1>
+		<h1 class="title">Watson Concept Expansion PoC</h1>
+		
+		<p class="app-description">
+			This application relies on IBM Watson Concept Expansion service. For further information please check the
+			official documentation <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-expansion/overview.shtml">here</a>.
+		</p>
 
-		<form novalidate ng-submit="submit()">
+		<form name="conceptExpansionForm" novalidate ng-submit="submit()">
 			
-			<div class="column-left">
+			<div class="input-column">
 			
 				<h2>Input</h2>
+				
+				<p style="width: 90%">
+					Inform a list of initial seeds. One concept per line. Each concept can have up to three words.
+				</p>
 			
-				<textarea style="width: 90%; height: 400px;" ng-model="seeds"></textarea> <br/> <br/>
-		   		<input type="submit" id="submit" value="Evaluate Seeds"></input> <br/>
+				<textarea name="seeds" class="seeds-area" ng-model="seeds" required></textarea>
+				
+		   		<input type="submit" id="submit" value="Evaluate Seeds" ng-disabled="conceptExpansionForm.$invalid"></input>
 		   		
 			</div>
 			
-			<div class="column-right">
+			<div class="output-column">
 				
 				<h2>Output</h2>
+				
+				<p style="width: 90%">
+					Here you will find a list of concepts related to the informed seeds. 
+					The figures on the right represent the prevalence of the concept.
+				</p>
 			
-				<ul>
+				<p class="wait-message" ng-show="loading">
+					Please wait while your the request is being processed...
+				</p>
+			
+				<ol ng-show="concepts != null" ng-hide="loading">
 					<li ng-repeat="concept in concepts">
-						{{ concept.name }} : {{ concept.prevalence * 100 | number:0 }} %
-					</li>
-				</ul>
+						{{ concept.name }}
+						<span title="Prevalence" style="color: {{ concept.prevalence >= 0.8 ? 'green' : 'red'}}">
+							({{ concept.prevalence * 100 | number:0 }}%)
+						</span>
+					</li>					
+				</ol>
+			
 			</div>
 
 		</form>
