@@ -21,4 +21,10 @@ public class ConceptExpansionController {
     	final String[] seedsArray = seeds.split("\n");
 		return service.evaluate(seedsArray);
     }
+    
+    @RequestMapping(value = "listAll", method = RequestMethod.GET)
+    @ResponseBody
+    String listAll() {
+    	return service.listAll();
+    }
 }

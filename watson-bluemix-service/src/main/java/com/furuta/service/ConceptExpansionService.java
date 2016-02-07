@@ -59,6 +59,10 @@ public class ConceptExpansionService {
 		return jobResult;
 	}
 	
+	public String listAll() {
+		return new Gson().toJson(repository.listAll());
+	}
+	
 	private String getTimestamp() {
 		final Date date = new Date();
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

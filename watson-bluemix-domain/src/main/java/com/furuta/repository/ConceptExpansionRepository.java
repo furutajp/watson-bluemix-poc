@@ -1,5 +1,7 @@
 package com.furuta.repository;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Repository;
@@ -7,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.FindByIndexOptions;
+import com.cloudant.client.api.model.IndexField;
+import com.cloudant.client.api.model.IndexField.SortOrder;
 import com.furuta.bean.ConceptExpansionJob;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -27,6 +32,24 @@ public class ConceptExpansionRepository {
 	public void save(final ConceptExpansionJob job) {
 		database.save(job);
 	}
+	
+	public List<ConceptExpansionJob> listAll() {
+
+		final String selectorJson = "\"selector\": { \"timestamp\": {\"$gt\": 0}}";
+		final FindByIndexOptions options = 
+				new FindByIndexOptions().sort(new IndexField("timestamp", SortOrder.desc))
+										.fields("_id")
+										.fields("_rev")
+										.fields("seeds")
+										.fields("timestamp")
+										.fields("jobId")
+										.fields("jobResult");
+		
+		return database.findByIndex(selectorJson,
+				 					ConceptExpansionJob.class,
+			 					 	options);
+	}
+	
 
 	private CloudantClient getCloudantClient() {
 		final JsonObject credentials = getCredentials();
