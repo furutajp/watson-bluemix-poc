@@ -23,8 +23,9 @@ public class ConceptExpansionController {
     @RequestMapping(value = "evaluate", method = RequestMethod.POST)
     @ResponseBody
     String evaluate(@RequestBody String seeds) {
+    	final String datasetId = "twitter";
     	final String[] seedsArray = seeds.split("\n");
-		final List<Concept> result = service.evaluate(seedsArray);
+		final List<Concept> result = service.evaluate(datasetId, seedsArray);
 		return new Gson().toJson(result);
     }
     

@@ -15,6 +15,7 @@ import com.furuta.bean.ConceptExpansionJob;
 import com.furuta.repository.ConceptExpansionJobRepository;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
+import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Dataset;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
 
 /**
@@ -32,8 +33,11 @@ public class ConceptExpansionService {
 	private void init() {
 		expansion = new ConceptExpansion();
 	}
-
-	public List<com.furuta.bean.Concept> evaluate(final String[] seeds) {
+	
+	public List<com.furuta.bean.Concept> evaluate(final String datasetId, final String[] seeds) {
+		
+		final Dataset dataset = getDatasetById(datasetId);
+		expansion.setDataset(dataset);
 		
 		final Job job = expansion.createJob(seeds);
 
@@ -56,6 +60,14 @@ public class ConceptExpansionService {
 	
 	public List<ConceptExpansionJob> listAll() {
 		return repository.listAll();
+	}
+	
+	private Dataset getDatasetById(final String datasetId) {
+		switch (datasetId) {
+		case "twitter" : return Dataset.TWITTER;
+		case "mtsamples" : return Dataset.MT_SAMPLES;
+		default : throw new AssertionError("Invalid datasetId: " + datasetId);
+		}
 	}
 	
 	private List<com.furuta.bean.Concept> convert(final List<Concept> concepts) {
