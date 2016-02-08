@@ -59,7 +59,7 @@ public class ConceptExpansionService {
 	}
 	
 	public List<ConceptExpansionJob> listAll() {
-		return repository.listAll();
+		return repository.listAllSortByTimestampDesc();
 	}
 	
 	private Dataset getDatasetById(final String datasetId) {

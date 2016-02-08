@@ -37,7 +37,7 @@ public class ConceptExpansionJobRepository {
 		return database.save(job);
 	}
 	
-	public List<ConceptExpansionJob> listAll() {
+	public List<ConceptExpansionJob> listAllSortByTimestampDesc() {
 
 		final String selectorJson = "\"selector\": { \"timestamp\": {\"$gt\": 0}}";
 		final FindByIndexOptions options = 
