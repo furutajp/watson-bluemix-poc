@@ -12,16 +12,19 @@ import org.springframework.stereotype.Service;
 
 import com.cloudant.client.api.model.Response;
 import com.furuta.bean.ConceptExpansionJob;
-import com.furuta.repository.ConceptExpansionRepository;
+import com.furuta.repository.ConceptExpansionJobRepository;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
 
+/**
+ *  This service delegates the user request (seeds) to Watson Concept Expansion service. 
+ */
 @Service
 public class ConceptExpansionService {
 
 	@Autowired
-	private ConceptExpansionRepository repository;
+	private ConceptExpansionJobRepository repository;
 
 	private ConceptExpansion expansion;
 	

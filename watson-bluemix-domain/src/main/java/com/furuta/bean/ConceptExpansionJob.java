@@ -3,6 +3,9 @@ package com.furuta.bean;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ *  Stores information of a user request.
+ */
 public class ConceptExpansionJob implements Serializable {
 
 	private static final long serialVersionUID = 3428247774423611042L;

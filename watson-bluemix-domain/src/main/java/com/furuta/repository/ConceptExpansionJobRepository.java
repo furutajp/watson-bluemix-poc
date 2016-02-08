@@ -19,8 +19,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ *  Repository for {@link ConceptExpansionJob}. 
+ */
 @Repository
-public class ConceptExpansionRepository {
+public class ConceptExpansionJobRepository {
 
 	private Database database;
 	

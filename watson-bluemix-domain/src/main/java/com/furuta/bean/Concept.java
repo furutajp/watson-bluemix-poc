@@ -2,6 +2,11 @@ package com.furuta.bean;
 
 import java.io.Serializable;
 
+
+/**
+ *  A concept returned by the Concept Expansion service, given a seed.
+ *  This class is a mirror of com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept.
+ */
 public class Concept implements Serializable {
 
 	private static final long serialVersionUID = -8059101017711958019L;
