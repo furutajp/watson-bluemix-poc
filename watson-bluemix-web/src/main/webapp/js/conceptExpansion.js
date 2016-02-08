@@ -28,7 +28,6 @@ app.controller('conceptExpansionCtrl', function($scope, $http) {
 	     		 		$scope.concepts = response.data;
 	     		 		$scope.loading = false;
 	     		 		$scope.listAll();
-	     		 		$scope.$apply();
  	    });
     };
 
