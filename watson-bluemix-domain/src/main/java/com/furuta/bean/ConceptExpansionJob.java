@@ -1,6 +1,7 @@
 package com.furuta.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ConceptExpansionJob implements Serializable {
 
@@ -9,7 +10,7 @@ public class ConceptExpansionJob implements Serializable {
 	private String _id;
 	private String _rev;
 	private String jobId;
-	private String jobResult;
+	private List<Concept> concepts;
 	private String[] seeds;
 	private String timestamp;
 	
@@ -37,14 +38,14 @@ public class ConceptExpansionJob implements Serializable {
 		this.jobId = jobId;
 	}
 	
-	public String getJobResult() {
-		return jobResult;
+	public List<Concept> getConcepts() {
+		return concepts;
 	}
-	
-	public void setJobResult(String jobResult) {
-		this.jobResult = jobResult;
+
+	public void setConcepts(List<Concept> concepts) {
+		this.concepts = concepts;
 	}
-	
+
 	public String[] getSeeds() {
 		return seeds;
 	}

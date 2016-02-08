@@ -3,15 +3,16 @@ package com.furuta.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloudant.client.api.model.Response;
 import com.furuta.bean.ConceptExpansionJob;
 import com.furuta.repository.ConceptExpansionRepository;
-import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
@@ -23,13 +24,13 @@ public class ConceptExpansionService {
 	private ConceptExpansionRepository repository;
 
 	private ConceptExpansion expansion;
-
+	
 	@PostConstruct
 	private void init() {
 		expansion = new ConceptExpansion();
 	}
 
-	public String evaluate(final String[] seeds) {
+	public List<com.furuta.bean.Concept> evaluate(final String[] seeds) {
 		
 		final Job job = expansion.createJob(seeds);
 
@@ -42,14 +43,25 @@ public class ConceptExpansionService {
 			}
 		}
 		
-		final List<Concept> concepts = expansion.getJobResult(job);
-		final String jobResult = new Gson().toJson(concepts);
-		saveJob(seeds, job, jobResult);
+		final List<Concept> jobResult = expansion.getJobResult(job);
+		final List<com.furuta.bean.Concept> concepts = convert(jobResult);
+		
+		saveJob(seeds, job, concepts);
 
-		return jobResult;
+		return concepts;
 	}
-
-	private String saveJob(final String[] seeds, final Job job, final String jobResult) {
+	
+	public List<ConceptExpansionJob> listAll() {
+		return repository.listAll();
+	}
+	
+	private List<com.furuta.bean.Concept> convert(final List<Concept> concepts) {
+		return concepts.stream()
+					   .map((concept) -> new com.furuta.bean.Concept(concept.getName(), concept.getPrevalence()))
+					   .collect(Collectors.<com.furuta.bean.Concept>toList());
+	}
+	
+	private Response saveJob(final String[] seeds, final Job job, final List<com.furuta.bean.Concept> concepts) {
 		
 		final String jobId = job.getId();
 		final String timestamp = getTimestamp();
@@ -57,15 +69,10 @@ public class ConceptExpansionService {
 		final ConceptExpansionJob conceptExpansionJob = new ConceptExpansionJob();
 		conceptExpansionJob.setJobId(jobId);
 		conceptExpansionJob.setSeeds(seeds);
-		conceptExpansionJob.setJobResult(jobResult);
+		conceptExpansionJob.setConcepts(concepts);
 		conceptExpansionJob.setTimestamp(timestamp);
 		
-		repository.save(conceptExpansionJob);
-		return jobResult;
-	}
-	
-	public String listAll() {
-		return new Gson().toJson(repository.listAll());
+		return repository.save(conceptExpansionJob);
 	}
 	
 	private String getTimestamp() {

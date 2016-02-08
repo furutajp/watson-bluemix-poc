@@ -12,6 +12,7 @@ import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.FindByIndexOptions;
 import com.cloudant.client.api.model.IndexField;
 import com.cloudant.client.api.model.IndexField.SortOrder;
+import com.cloudant.client.api.model.Response;
 import com.furuta.bean.ConceptExpansionJob;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -29,8 +30,8 @@ public class ConceptExpansionRepository {
 		this.database = client.database("concept-expansion", false);
 	}
 
-	public void save(final ConceptExpansionJob job) {
-		database.save(job);
+	public Response save(final ConceptExpansionJob job) {
+		return database.save(job);
 	}
 	
 	public List<ConceptExpansionJob> listAll() {
@@ -43,7 +44,7 @@ public class ConceptExpansionRepository {
 										.fields("seeds")
 										.fields("timestamp")
 										.fields("jobId")
-										.fields("jobResult");
+										.fields("concepts");
 		
 		return database.findByIndex(selectorJson,
 				 					ConceptExpansionJob.class,
