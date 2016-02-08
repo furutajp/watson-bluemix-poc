@@ -74,9 +74,11 @@
 
 			<h2 style="margin-left: 10%">Latest seeds:</h2>
 
-			<ol style="margin-left: 10%">
-				<li ng-repeat="latest in latestSeeds | limitTo:10">
-					{{ latest.seeds }}
+			<ol style="margin-left: 9%">
+				<li ng-repeat="job in jobs | limitTo:10" style="margin-bottom: 15px;">
+					<span ng-repeat="seed in job.seeds" style="border: 1px solid grey; padding: 5px; margin: 3px;">
+						{{seed}}
+					</span>
 				</li>					
 			</ol>
 

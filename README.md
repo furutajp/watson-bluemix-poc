@@ -6,7 +6,7 @@ This application relies on IBM Watson Concept Expansion service. The purpose of 
 is to determine the conceptual context of a given set of seed words or phrases and provides 
 additional words or phrases that expand on the concept.
 
-This application is deployed at http://watson-bluemix-poc.mybluemix.net/
+The application is deployed at http://watson-bluemix-poc.mybluemix.net/
 
 ##Bluemix services
 

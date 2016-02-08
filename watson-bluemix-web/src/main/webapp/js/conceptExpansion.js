@@ -11,7 +11,7 @@ app.controller('conceptExpansionCtrl', function($scope, $http) {
 	$scope.listAll = function() {
 		$http.get("/listAll")
 			 .then(function(response) {
-				 		$scope.latestSeeds = response.data;
+				 		$scope.jobs = response.data;
 	    });
 	};
 	
