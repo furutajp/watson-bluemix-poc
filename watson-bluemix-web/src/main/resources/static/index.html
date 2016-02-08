@@ -55,7 +55,7 @@
 						Please wait while your the request is being processed...
 					</p>
 	
-					<p class="message" ng-show="concepts.length == 0 && conceptExpansionForm.$submitted">
+					<p class="message" ng-show="!loading && concepts.length == 0 && conceptExpansionForm.$submitted">
 						Your query returned no results.
 					</p>
 				
@@ -81,7 +81,6 @@
 			</ol>
 
 		</form>
-		
 		
 	</body>
 </html>
