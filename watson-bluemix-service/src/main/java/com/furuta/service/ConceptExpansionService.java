@@ -43,9 +43,15 @@ public class ConceptExpansionService {
 		}
 		
 		final List<Concept> concepts = expansion.getJobResult(job);
-
-		final String jobId = job.getId();
 		final String jobResult = new Gson().toJson(concepts);
+		saveJob(seeds, job, jobResult);
+
+		return jobResult;
+	}
+
+	private String saveJob(final String[] seeds, final Job job, final String jobResult) {
+		
+		final String jobId = job.getId();
 		final String timestamp = getTimestamp();
 		
 		final ConceptExpansionJob conceptExpansionJob = new ConceptExpansionJob();
@@ -55,7 +61,6 @@ public class ConceptExpansionService {
 		conceptExpansionJob.setTimestamp(timestamp);
 		
 		repository.save(conceptExpansionJob);
-		
 		return jobResult;
 	}
 	

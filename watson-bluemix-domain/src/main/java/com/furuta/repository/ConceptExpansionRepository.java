@@ -50,7 +50,6 @@ public class ConceptExpansionRepository {
 			 					 	options);
 	}
 	
-
 	private CloudantClient getCloudantClient() {
 		final JsonObject credentials = getCredentials();
 		final String username = credentials.get("username").getAsString();
