@@ -11,11 +11,13 @@ This application is deployed at http://watson-bluemix-poc.mybluemix.net/
 ##Architecture
 
 The following Bluemix services were used in this application:
-1. Concept Expansion;
-2. Cloudant NoSQL DB;
+
+1. Concept Expansion
+2. Cloudant NoSQL DB
 
 The application was developed using the technologies below:
-1. Java 8;
-2. Spring 4;
-3. AngularJS 1.5.0;
-4. Maven 3.3.9;
+
+1. Java 8
+2. Spring 4
+3. AngularJS 1.5.0
+4. Maven 3.3.9
