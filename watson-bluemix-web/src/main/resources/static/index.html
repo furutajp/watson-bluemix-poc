@@ -25,56 +25,63 @@
 		</p>
 
 		<form name="conceptExpansionForm" novalidate ng-submit="submit()">
+		
+			<div style="width: 100%; height: 580px;" >
 			
-			<div class="input-column">
-			
-				<h2>Input</h2>
+				<div class="input-column">
 				
-				<p style="width: 90%">
-					Inform a list of initial seeds. One concept per line. Each concept can have up to three words.
-				</p>
-			
-				<textarea name="seeds" class="seeds-area" ng-model="seeds" required></textarea>
+					<h2>Input</h2>
+					
+					<p style="width: 90%">
+						Inform a list of initial seeds. One concept per line. Each concept can have up to three words.
+					</p>
 				
-		   		<input type="submit" id="submit" value="Evaluate Seeds" ng-disabled="conceptExpansionForm.$invalid"></input>
-		   		
+					<textarea name="seeds" class="seeds-area" ng-model="seeds" required></textarea>
+					
+			   		<input type="submit" id="submit" value="Evaluate Seeds" ng-disabled="conceptExpansionForm.$invalid"></input>
+			   		
+				</div>
+				
+				<div class="output-column">
+					
+					<h2>Output</h2>
+					
+					<p style="width: 90%">
+						Here you will find a list of concepts related to the informed seeds. 
+						The figures on the right represent the prevalence of the concept.
+					</p>
+				
+					<p class="message" ng-show="loading">
+						Please wait while your the request is being processed...
+					</p>
+	
+					<p class="message" ng-show="concepts.length == 0 && conceptExpansionForm.$submitted">
+						Your query returned no results.
+					</p>
+				
+					<ol ng-show="concepts.length > 0" ng-hide="loading">
+						<li ng-repeat="concept in concepts">
+							{{ concept.name }}
+							<span title="Prevalence" style="color: {{ concept.prevalence >= 0.8 ? 'green' : 'red'}}">
+								({{ concept.prevalence * 100 | number:0 }}%)
+							</span>
+						</li>					
+					</ol>
+				
+				</div>
+				
 			</div>
-			
-			<div class="output-column">
-				
-				<h2>Output</h2>
-				
-				<p style="width: 90%">
-					Here you will find a list of concepts related to the informed seeds. 
-					The figures on the right represent the prevalence of the concept.
-				</p>
-			
-				<p class="message" ng-show="loading">
-					Please wait while your the request is being processed...
-				</p>
 
-				<p class="message" ng-show="concepts.length == 0 && conceptExpansionForm.$submitted">
-					Your query returned no results.
-				</p>
-			
-				<ol ng-show="concepts.length > 0" ng-hide="loading">
-					<li ng-repeat="concept in concepts">
-						{{ concept.name }}
-						<span title="Prevalence" style="color: {{ concept.prevalence >= 0.8 ? 'green' : 'red'}}">
-							({{ concept.prevalence * 100 | number:0 }}%)
-						</span>
-					</li>					
-				</ol>
-			
-			</div>
+			<h2 style="margin-left: 10%">Latest seeds:</h2>
+
+			<ol style="margin-left: 10%">
+				<li ng-repeat="latest in latestSeeds | limitTo:10">
+					{{ latest.seeds }}
+				</li>					
+			</ol>
 
 		</form>
 		
-		<ol>
-			<li ng-repeat="latest in latestSeeds">
-				{{ latest.seeds }}
-			</li>					
-		</ol>
 		
 	</body>
 </html>
