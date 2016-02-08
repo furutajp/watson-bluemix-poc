@@ -3,8 +3,11 @@ var app = angular.module('conceptExpansionModule', []);
 app.controller('conceptExpansionCtrl', function($scope, $http) {
 	
 	$scope.loading = false;
-	
 	$scope.seeds = 'banana\norange\nstrawberry';
+	$http.get("/listAll")
+		 .then(function(response) {
+			 		$scope.latestSeeds = response.data;
+    });
 	
 	$scope.submit = function() {
 		
