@@ -30,6 +30,7 @@ app.controller('conceptExpansionCtrl', function($scope, $http) {
  	    });
 		
 		$scope.listAll();
+		$scope.$apply();
     };
 
     $scope.init();
