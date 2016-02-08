@@ -2,12 +2,18 @@ var app = angular.module('conceptExpansionModule', []);
 
 app.controller('conceptExpansionCtrl', function($scope, $http) {
 	
-	$scope.loading = false;
-	$scope.seeds = 'banana\norange\nstrawberry';
-	$http.get("/listAll")
-		 .then(function(response) {
-			 		$scope.latestSeeds = response.data;
-    });
+	$scope.init = function() {
+		$scope.loading = false;
+		$scope.seeds = 'banana\norange\nstrawberry';
+		$scope.listAll();
+	};
+	
+	$scope.listAll = function() {
+		$http.get("/listAll")
+			 .then(function(response) {
+				 		$scope.latestSeeds = response.data;
+	    });
+	};
 	
 	$scope.submit = function() {
 		
@@ -21,6 +27,11 @@ app.controller('conceptExpansionCtrl', function($scope, $http) {
 	     	 .then(function(response) {
 	     		 		$scope.concepts = response.data;
 	     		 		$scope.loading = false;
-	     	 	   });
+ 	    });
+		
+		$scope.listAll();
     };
+
+    $scope.init();
+    
 });
