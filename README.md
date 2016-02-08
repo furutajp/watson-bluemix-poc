@@ -29,6 +29,6 @@ The application was developed using the technologies below:
 The application is composed by the modules below:
 
 1. watson-bluemix-poc : main module (POM parent)
-  1.1. watson-bluemix-domain : manages the access to the database
-  1.2. watson-bluemix-service : encapsulates the access to the Concept Expansion service provided by the Bluemix platform
-  1.3. watson-bluemix-web : definitions of the pages and rest services accessed by the view
+2. watson-bluemix-domain : manages the access to the database
+3. watson-bluemix-service : encapsulates the access to the Concept Expansion service provided by the Bluemix platform
+4. watson-bluemix-web : definitions of the pages and rest services accessed by the view
