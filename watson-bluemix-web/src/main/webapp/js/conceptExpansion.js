@@ -27,10 +27,9 @@ app.controller('conceptExpansionCtrl', function($scope, $http) {
 	     	 .then(function(response) {
 	     		 		$scope.concepts = response.data;
 	     		 		$scope.loading = false;
+	     		 		$scope.listAll();
+	     		 		$scope.$apply();
  	    });
-		
-		$scope.listAll();
-		$scope.$apply();
     };
 
     $scope.init();
