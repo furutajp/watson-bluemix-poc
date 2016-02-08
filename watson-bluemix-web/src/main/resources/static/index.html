@@ -42,11 +42,15 @@
 					The figures on the right represent the prevalence of the concept.
 				</p>
 			
-				<p class="wait-message" ng-show="loading">
+				<p class="message" ng-show="loading">
 					Please wait while your the request is being processed...
 				</p>
+
+				<p class="message" ng-show="concepts.length == 0 && conceptExpansionForm.$submitted">
+					Your query returned no results.
+				</p>
 			
-				<ol ng-show="concepts != null" ng-hide="loading">
+				<ol ng-show="concepts.length > 0" ng-hide="loading">
 					<li ng-repeat="concept in concepts">
 						{{ concept.name }}
 						<span title="Prevalence" style="color: {{ concept.prevalence >= 0.8 ? 'green' : 'red'}}">

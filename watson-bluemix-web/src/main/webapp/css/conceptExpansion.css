@@ -24,15 +24,15 @@
 
 .seeds-area {
 	width: 90%;
-	height: 400px;
+	height: 390px;
 	font-family: "Arial";	
+	font-size: 12pt;
 }
 
-.wait-message {
+.message {
 	width: 90%;
 	margin-top: 200px;
 	text-align: center;
-	color: red;
 }
 
 body {
