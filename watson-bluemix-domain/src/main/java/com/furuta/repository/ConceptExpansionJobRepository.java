@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cloudant.client.api.ClientBuilder;
@@ -25,50 +26,45 @@ import com.google.gson.JsonParser;
 @Repository
 public class ConceptExpansionJobRepository {
 
-	private Database database;
-	
-	@PostConstruct
-	private void init() {
-		final CloudantClient client = getCloudantClient();
-		this.database = client.database("concept-expansion", false);
-	}
+	@Autowired
+	private CloudantClientManager manager;
 
 	public Response save(final ConceptExpansionJob job) {
-		return database.save(job);
+		try {
+			final Database database = getDatabase();
+			return database.save(job);
+			
+		} catch (final Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error saving job.", e);
+		}
 	}
 	
 	public List<ConceptExpansionJob> listAllSortByTimestampDesc() {
 
-		final String selectorJson = "\"selector\": { \"timestamp\": {\"$gt\": 0}}";
-		final FindByIndexOptions options = 
-				new FindByIndexOptions().sort(new IndexField("timestamp", SortOrder.desc))
-										.fields("_id")
-										.fields("_rev")
-										.fields("seeds")
-										.fields("timestamp")
-										.fields("jobId")
-										.fields("concepts");
-		
-		return database.findByIndex(selectorJson,
-				 					ConceptExpansionJob.class,
-			 					 	options);
+		try {
+			final Database database = getDatabase();
+			final String selectorJson = "\"selector\": { \"timestamp\": {\"$gt\": 0}}";
+			final FindByIndexOptions options = 
+					new FindByIndexOptions().sort(new IndexField("timestamp", SortOrder.desc))
+											.fields("_id")
+											.fields("_rev")
+											.fields("seeds")
+											.fields("timestamp")
+											.fields("jobId")
+											.fields("concepts");
+			
+			return database.findByIndex(selectorJson,
+					 					ConceptExpansionJob.class,
+				 					 	options);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error loading jobs.", e);
+		}
 	}
-	
-	private CloudantClient getCloudantClient() {
-		final JsonObject credentials = getCredentials();
-		final String username = credentials.get("username").getAsString();
-		final String password = credentials.get("password").getAsString();
-		return ClientBuilder.account(username)
-							.username(username)
-							.password(password)
-							.build();
-	}
-	
-	private JsonObject getCredentials() {
-		final String VCAP_SERVICES = System.getenv("VCAP_SERVICES");
-		final JsonObject vcapServices = (JsonObject) new JsonParser().parse(VCAP_SERVICES);
-		final JsonElement cloudantElement = vcapServices.get("cloudantNoSQLDB");
-		final JsonObject service = (JsonObject) ((JsonArray) cloudantElement).get(0);
-		return (JsonObject) service.get("credentials");
+
+	private Database getDatabase() {
+		final CloudantClient client = manager.getClient();
+		return client.database("concept-expansion", false);
 	}
 }
